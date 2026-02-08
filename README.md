@@ -1,56 +1,87 @@
-# [py_canoe](https://github.com/chaitu-ycr/py_canoe)
+# py_canoe
 
-## about package
+[![PyPI version](https://badge.fury.io/py/py-canoe.svg)](https://pypi.org/project/py_canoe/)
+[![Python versions](https://img.shields.io/pypi/pyversions/py_canoe.svg)](https://pypi.org/project/py_canoe/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Python 🐍 Package for controlling Vector CANoe 🛶 Tool
+**py_canoe** is a Python package for programmatically controlling Vector CANoe, enabling automation of CAN network testing, simulation, and diagnostics.
 
-## important links
+## Features
 
-- py_canoe github documentation [🔗 link](https://chaitu-ycr.github.io/py_canoe/)
-- pypi package [🔗 link](https://pypi.org/project/py_canoe/)
-- github releases [🔗 link](https://github.com/chaitu-ycr/py_canoe/releases)
-- for ideas💡/sugessions please create new discussion [here](https://github.com/chaitu-ycr/py_canoe/discussions)
-- create issue or request feature [here](https://github.com/chaitu-ycr/py_canoe/issues/new/choose)
-- fork [py_canoe](https://github.com/chaitu-ycr/py_canoe/fork) repo and create pull request to contribute back to this project.
+- 🚀 **Full CANoe Automation** - Control CANoe configurations, measurements, and operations
+- 📊 **Signal Access** - Read and write CAN signals with raw and physical values
+- 🔧 **Diagnostics Support** - Send diagnostic requests and control tester present
+- 📝 **System Variables** - Get, set, and define system variables
+- 🎯 **Test Execution** - Execute test modules and test environments
+- 📄 **Offline Mode** - Work with offline configurations and replay blocks
+- 🔍 **Bus Statistics** - Monitor CAN bus statistics in real-time
+- 💻 **CAPL Integration** - Compile CAPL nodes and call CAPL functions
 
-## prerequisites
+## Quick Links
 
-- [Python(>=3.9)](https://www.python.org/downloads/)
-- [Vector CANoe software(>=v11)](https://www.vector.com/int/en/support-downloads/download-center/)
-- [visual studio code](https://code.visualstudio.com/Download)
-- Windows PC(recommended win 10 os along with 16GB RAM)
+- 📖 [Documentation](https://chaitu-ycr.github.io/py_canoe/)
+- 📦 [PyPI Package](https://pypi.org/project/py_canoe/)
+- 🎉 [Releases](https://github.com/chaitu-ycr/py_canoe/releases)
+- 💡 [Discussions](https://github.com/chaitu-ycr/py_canoe/discussions) - Ideas and suggestions
+- 🐛 [Issues](https://github.com/chaitu-ycr/py_canoe/issues/new/choose) - Bug reports and feature requests
 
-## setup and installation
+## Prerequisites
 
-create python virtual environment
+- **Python 3.9 or higher** - [Download Python](https://www.python.org/downloads/)
+- **Vector CANoe v11 or higher** - [Download CANoe](https://www.vector.com/int/en/support-downloads/download-center/)
+- **Windows Operating System** - Windows 10 or later recommended (16GB RAM recommended)
+- **Code Editor** - [Visual Studio Code](https://code.visualstudio.com/Download) or your preferred IDE
+
+## Installation
+
+### Create a Python Virtual Environment
 
 ```bat
 python -m venv .venv
 ```
 
-activate virtual environment
+### Activate the Virtual Environment
 
 ```bat
 .venv\Scripts\activate
 ```
 
-upgrade pip (optional)
-
-```bat
-python -m pip install pip --upgrade
-```
-
-Install [py_canoe](https://pypi.org/project/py_canoe/) package
+### Install py_canoe
 
 ```bat
 pip install py_canoe --upgrade
 ```
 
----
+### Optional: Upgrade pip
 
-## example use cases
+```bat
+python -m pip install pip --upgrade
+```
 
-### import CANoe module and create CANoe object instance
+## Quick Start
+
+```python
+from py_canoe import CANoe
+
+# Create CANoe instance
+canoe_inst = CANoe()
+
+# Open configuration and start measurement
+canoe_inst.open(canoe_cfg=r'path\to\config.cfg')
+canoe_inst.start_measurement()
+
+# Get CANoe version information
+version_info = canoe_inst.get_canoe_version_info()
+print(f"CANoe Version: {version_info}")
+
+# Stop measurement and close
+canoe_inst.stop_measurement()
+canoe_inst.quit()
+```
+
+## Usage Examples
+
+### Import CANoe Module and Create Instance
 
 ```python
 from py_canoe import CANoe
@@ -59,7 +90,7 @@ from time import sleep as wait
 canoe_inst = CANoe()
 ```
 
-### open CANoe, start measurement, get version info, stop measurement and close canoe configuration
+### Open CANoe Configuration and Control Measurement
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo.cfg')
@@ -69,7 +100,7 @@ canoe_inst.stop_measurement()
 canoe_inst.quit()
 ```
 
-### restart/reset running measurement
+### Restart/Reset Running Measurement
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo.cfg')
@@ -78,7 +109,7 @@ canoe_inst.reset_measurement()
 canoe_inst.stop_ex_measurement()
 ```
 
-### open CANoe offline config and start/break/step/reset/stop measurement in offline mode
+### Work with Offline Configurations
 
 ```python
 canoe_inst.open(r'tests\demo_cfg\demo_offline.cfg')
@@ -95,7 +126,7 @@ canoe_inst.stop_measurement()
 wait(1)
 ```
 
-### get/set CANoe measurement index
+### Get/Set CANoe Measurement Index
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -109,14 +140,14 @@ canoe_inst.reset_measurement()
 canoe_inst.stop_measurement()
 ```
 
-### save CANoe config to a different version with different name
+### Save CANoe Configuration to Different Version
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
 canoe_inst.save_configuration_as(path=r'tests\demo_cfg\demo_v10.cfg', major=10, minor=0, create_dir=True)
 ```
 
-### get CAN bus statistics of CAN channel 1
+### Get CAN Bus Statistics
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -126,7 +157,7 @@ canoe_inst.get_can_bus_statistics(channel=1)
 canoe_inst.stop_measurement()
 ```
 
-### get/set bus signal value, check signal state and get signal full name
+### Work with Bus Signals
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -142,7 +173,7 @@ sig_val = canoe_inst.get_signal_value(bus='CAN', channel=1, message='LightState'
 canoe_inst.stop_measurement()
 ```
 
-### clear write window / read text from write window / control write window output file
+### Control Write Window
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -159,14 +190,14 @@ canoe_inst.disable_write_window_output_file()
 wait(1)
 ```
 
-### switch between CANoe desktops
+### Switch Between CANoe Desktops
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
 canoe_inst.ui_activate_desktop('Configuration')
 ```
 
-### get/set system variable or define system variable
+### Work with System Variables
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -189,7 +220,7 @@ sys_var_val = canoe_inst.get_system_variable_value('sys_demo::demo')
 canoe_inst.stop_measurement()
 ```
 
-### send diagnostic request, control tester present
+### Send Diagnostic Requests
 
 ```python
 canoe_inst.open(r'tests\demo_cfg\demo_diag.cfg')
@@ -207,7 +238,7 @@ resp = canoe_inst.send_diag_request('Door', '10 03', return_sender_name=True)
 canoe_inst.stop_measurement()
 ```
 
-### set replay block source file / control replay block start stop
+### Control Replay Blocks
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -222,7 +253,7 @@ wait(1)
 canoe_inst.stop_measurement()
 ```
 
-### compile CAPL nodes and call capl function
+### Compile CAPL and Call Functions
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -234,7 +265,7 @@ canoe_inst.call_capl_function('hello_world')
 canoe_inst.stop_measurement()
 ```
 
-### execute test setup test module / test environment
+### Execute Test Modules
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -246,7 +277,7 @@ wait(1)
 canoe_inst.stop_measurement()
 ```
 
-### get/set environment variable value
+### Work with Environment Variables
 
 ```python
 canoe_inst.open(canoe_cfg=r'tests\demo_cfg\demo_dev.cfg')
@@ -263,3 +294,37 @@ var_value = canoe_inst.get_environment_variable_value('data_var')
 wait(1)
 canoe_inst.stop_measurement()
 ```
+
+## Contributing
+
+Contributions are welcome! Here's how you can help:
+
+1. **Fork the repository** - Create your own fork of [py_canoe](https://github.com/chaitu-ycr/py_canoe/fork)
+2. **Create a feature branch** - `git checkout -b feature/amazing-feature`
+3. **Make your changes** - Follow the existing code style
+4. **Test your changes** - Ensure everything works as expected
+5. **Commit your changes** - `git commit -m 'Add amazing feature'`
+6. **Push to the branch** - `git push origin feature/amazing-feature`
+7. **Open a Pull Request** - Submit your PR for review
+
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+
+## Support
+
+- 📖 **Documentation**: [https://chaitu-ycr.github.io/py_canoe/](https://chaitu-ycr.github.io/py_canoe/)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/chaitu-ycr/py_canoe/discussions) for questions and ideas
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/chaitu-ycr/py_canoe/issues/new/choose)
+- ✨ **Feature Requests**: [GitHub Issues](https://github.com/chaitu-ycr/py_canoe/issues/new/choose)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+**chaitu-ycr** - [chaitu.ycr@gmail.com](mailto:chaitu.ycr@gmail.com)
+
+## Acknowledgments
+
+- Vector Informatik GmbH for the CANoe software
+- The Python community for the excellent pywin32 package
